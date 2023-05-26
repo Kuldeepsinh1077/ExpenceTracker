@@ -1,6 +1,5 @@
 import './ExpenseForm.css'
 import React, {useState} from "react";
-
 function ExpenseForm(props) {
 
     const [enteredtitle, setEnteredTitle] = useState('');
@@ -41,7 +40,7 @@ function ExpenseForm(props) {
 
         const expenseData = {
             title : enteredtitle,
-            amount : enteredamount,
+            amount : +enteredamount,
             date : new Date(entereddate)
         };
 
@@ -49,6 +48,10 @@ function ExpenseForm(props) {
         setEnteredTitle('');
         setEnteredAmount('');
         setEnteredDate('');
+        props.cancelEditFormHandler();
+    };
+    const cancelHandler = () => {
+        props.cancelEditFormHandler();
     };
 
     return(
@@ -65,6 +68,9 @@ function ExpenseForm(props) {
                 <div className="new-expense__control">
                     <label>Date</label>
                     <input type="date" value={entereddate} min="2019-01-01" max="2023-12-31" onChange={dateChangeHandler}/>
+                </div>
+                <div className="new-expense__actions">
+                    <button type="button" onClick={cancelHandler}>Cancel</button>
                 </div>
                 <div className="new-expense__actions">
                     <button type="submit">Add Expense</button>

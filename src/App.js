@@ -1,20 +1,22 @@
 import './App.css';
+// eslint-disable-next-line no-unused-vars
 import Expenses from "./component/Expenses/Expenses";
-import React from 'react';
-import {expences} from './data'
+import React, { useState } from 'react';
+import {expenseData} from './data'
 import NewExpense from "./component/NewExpense/NewExpense";
 
 function App() {
-
+    const [expenses, setExpenses] = useState(expenseData)
     const saveExpenseHandler = (expense) => {
-        console.log("Hello from App.js .....")
-        console.log(expense);
+        setExpenses((prevExpenses) => {
+            return [ expense, ...prevExpenses];
+        });
     };
 
     return (
         <div>
             <NewExpense onSaveExpense={saveExpenseHandler}/>
-            <Expenses obj={expences} />
+            <Expenses expenses={expenses} />
         </div>
     );
 }
